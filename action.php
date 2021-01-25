@@ -63,7 +63,7 @@
                                         <li class="ml-3">'.$row['hard_disc'].'</li>
                                         <li class="ml-3">'.$row['graphic_card'].' '.$row['model_graphic_card'].'</li>
                                     </ul>
-                                    <p class="text-center font-italic"style="color:red;text-decoration:underline; ">'.$row['price'].' KM</p>
+                                    <p class="text-center font-italic"style="color:red;text-decoration:underline; ">'.$row['price'].' BAM</p>
                                 </p>
                             </div>
                             <div class="card-footer">

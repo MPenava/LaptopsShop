@@ -1,11 +1,10 @@
 <?php
-session_start();
-include("model/db.php"); 
-include("model/user.class.php"); 
-include("model/product.class.php"); 
-if (!User::jePrijavljen()) header("Location: login.php");
-
-$prijavljeni_korisnik = User::$prijavljeniKorisnik;
+    session_start();
+    include("model/db.php"); 
+    include("model/user.class.php"); 
+    if (!User::jePrijavljen()) header("Location: login.php");
+    
+    $prijavljeni_korisnik = User::$prijavljeniKorisnik;
 ?>
 
 <!DOCTYPE html>
@@ -107,71 +106,70 @@ $prijavljeni_korisnik = User::$prijavljeniKorisnik;
             <p><span></span></p>
         </div>
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                <div  style="display:<?php if(isset($_SESSION["showAlert"])){echo $_SESSION["showAlert"];}else{echo 'none';}unset($_SESSION['showAlert']);?>" class="alert alert-success alert-dismissible mt-3">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong><?php if(isset($_SESSION["message"])){echo $_SESSION["message"];} unset($_SESSION['showAlert']);?></strong>
+            <div class="row mt-3">
+                <div class="col-lg-4">
+                    <h4 class="text-primary">Adresa isporuke</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <h6 class="text-dark">Informacije o vašem profilu</h6>
+                        </div>
+                        <div class="col-4 text-dark">
+                            <b>Ime:</b><br><br>
+                            <b>Adresa:</b><br><br>
+                            <b>E-mail:</b><br><br>
+                            <b>Telefon:</b><br><br>
+
+                        </div>
+                        <div class="col-8 text-right text-secondary">
+                            <?=$prijavljeni_korisnik["firstName"]?> <?=$prijavljeni_korisnik["surName"]?><br><br>
+                            <?=$prijavljeni_korisnik["address"]?><br><br>
+                            <?=$prijavljeni_korisnik["email"]?><br><br>
+                            <?=$prijavljeni_korisnik["phone"]?><br><br>
+                        </div>
+                        <div class="col-lg-12">
+                            <button class="btn btn-primary btn-block"><i class="far fa-credit-card"></i>&nbsp;&nbsp;Potvrdi narudžbu</button>
+                        </div>
+                    </div>
                 </div>
-                    <div class="table-responsive mt-4">
-                        <table class="table table-bordered table-striped text-center">
-                            <thead>
+                <div class="col-lg-8">
+                    <h4 class="text-primary">Proizvodi</h4>
+                    <hr>
+                    <div class="table-responsive">
+                        <table class="table  text-center">
+                            <thead class="thead-light">
                                 <tr>
-                                    <td colspan="7"><h4 class="text-center text-primary m-0">Proizvodi u košarici!</h4></td>                 
-                                </tr>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Slika</th>
+                                    <th></th>
                                     <th>Proizvod</th>
                                     <th>Cijena</th>
                                     <th>Količina</th>
-                                    <th>Ukupna cijena</th>
-                                    <th>
-                                        <a href="action.php?clear=all" class="badge-danger badge p-1" onclick="return confirm('Jeste li sigurni da želite isprazniti košaricu?');">
-                                            <i class="fas fa-trash"></i>&nbsp;&nbsp;Ispraznite košaricu
-                                        </a>
-                                    </th>
+                                    <th>Ukupno</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                    require "model/db.php";
+                                <?php
                                     $stmt=$conn->prepare("SELECT * FROM cart WHERE userId=?");
                                     $stmt->bind_param("i",$prijavljeni_korisnik["ID"]);
                                     $stmt->execute();
                                     $result=$stmt->get_result();
                                     $grand_total=0;
-    
+
                                     while($row=$result->fetch_assoc()):
                                 ?>
                                 <tr>
-                                    <td><?=$row["ID"]?></td>
-                                    <input type="hidden" class="pid" value="<?=$row["ID"]?>">
-                                    <td><img src="<?=$row["product_image"]?>" width="50"></td>
+                                    <td><img src="<?= $row["product_image"]?>" width="50"></td>
                                     <td><?= $row["product_name"]?></td>
-                                    <td><i class="far fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($row["product_price"],2)?> BAM</td>
-                                    <input type="hidden" class="pprice" value="<?= $row["product_price"]?>">
-                                    <td><input type="number"  class="form-control itemQty" value="<?=$row["qty"]?>" style="width:75px;"></td>
-                                    <td><i class="far fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($row["total_price"],2)?> BAM</td>
-                                    <td>
-                                        <a href="action.php?remove=<?= $row["ID"]?>" class="text-danger lead" onclick="return confirm('Jeste li sigurni da želite izbristi proizvod?')">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
-                                    </td>
+                                    <td><?= number_format($row["product_price"],2)?> BAM</td>
+                                    <td><?= $row["qty"]?></td>
+                                    <td><?= $row["total_price"]?> BAM</td>
                                 </tr>
                                 <?php $grand_total += $row['total_price'];?>
                                 <?php endwhile?>
                                 <tr>
-                                    <td colspan="3">
-                                        <a href="user-login.php" class="btn btn-success"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Nastavite kupovati</a>
-                                    </td>
-                                    <td colspan="2"><b>Ukupna cijena</b></td>
-                                    <td><b><i class="fas fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($grand_total,2)?> BAM</b></td>
-                                    <td>
-                                        <a href="checkout.php"  class="btn btn-primary  <?= ($grand_total>1)?"":"disabled";?>"><i class="far fa-credit-card"></i>&nbsp;&nbsp;Dovršite narudžbu</a>
-                                    </td>
+                                    <th colspan="4" class="text-right">Ukupna cijena</th>
+                                    <th><b><i class="fas fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($grand_total,2)?> BAM</b></th>
                                 </tr>
-                            </tbody>
+                            </tbody>         
                         </table>
                     </div>
                 </div>
@@ -215,23 +213,6 @@ $prijavljeni_korisnik = User::$prijavljeniKorisnik;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function(){
-            $(".itemQty").on("change",function(){
-                var $el=$(this).closest("tr");
-                var pid=$el.find(".pid").val();
-                var pprice=$el.find(".pprice").val();
-                var qty=$el.find(".itemQty").val();
-                location.reload(true);
-                $.ajax({
-                    url:"action.php",
-                    method:"post",
-                    cache:false,
-                    data:{qty:qty,pid:pid,pprice:pprice},
-                    success:function(response){                      
-                        console.log(response);
-                    }
-                });
-            }); 
-            
             load_cart_item_number();
             function load_cart_item_number(){
                 $.ajax({
@@ -244,43 +225,8 @@ $prijavljeni_korisnik = User::$prijavljeniKorisnik;
                 });
             }
             
-            $(".addItemBtn").click(function(e){
-                e.preventDefault();
-                var $form=$(this).closest(".form-submit");
-                var pid=$form.find(".pid").val();
-                var pname=$form.find(".pname").val();
-                var pprice=$form.find(".pprice").val();
-                var pimage=$form.find(".pimage").val();
-                var user=<?=$prijavljeni_korisnik["ID"]?>;
-
-                $.ajax({
-                    url:"action.php",
-                    method:"post",
-                    data:{pid:pid,pname:pname,pprice:pprice,pimage:pimage,user:user},
-                    success:function(response){
-                        $("#message").html(response);
-                        window.scrollTo(0,0);
-                        load_cart_item_number();
-                    }
-                });
-
-                load_cart_item_number();
-                function load_cart_item_number(){
-                    $.ajax({
-                        url:"action.php",
-                        method:"get",
-                        data:{cartItem:"cart_item"},
-                        success:function(response){
-                            $("#cart-item").html(response);
-                        }
-                    });
-                }
-            });
-            
-            
-        });
+        
     </script>
 </body>
 
 </html>
-    

@@ -188,7 +188,7 @@
                                     <li class="ml-3"><?=$product['hard_disc'] ?></li>
                                     <li class="ml-3"><?php echo($product['graphic_card'] . " " . $product['model_graphic_card']);?></li>
                                 </ul>
-                                <p class="text-center font-italic"style="color:red;text-decoration:underline; "><?php echo($product['price']." KM"); ?></p>
+                                <p class="text-center font-italic"style="color:red;text-decoration:underline; "><?php echo($product['price']." BAM"); ?></p>
                             </p>
                         </div>
                     </div>

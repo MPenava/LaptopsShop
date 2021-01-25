@@ -6,6 +6,9 @@ include("model/product.class.php");
 if (!User::jePrijavljen()) header("Location: login.php");
 
 $prijavljeni_korisnik = User::$prijavljeniKorisnik;
+if($prijavljeni_korisnik["typeOfUser"] !='korisnik'){
+    header("Location:login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -394,7 +397,7 @@ $prijavljeni_korisnik = User::$prijavljeniKorisnik;
                                             <li class="ml-3"><?=$product['hard_disc'] ?></li>
                                             <li class="ml-3"><?php echo($product['graphic_card'] . " " . $product['model_graphic_card']);?></li>
                                         </ul>
-                                        <p class="text-center font-italic"style="color:red;text-decoration:underline; "><?php echo($product['price']." KM"); ?></p>
+                                        <p class="text-center font-italic"style="color:red;text-decoration:underline; "><?php echo($product['price']." BAM"); ?></p>
                                     </p>
                                 </div>
                                 <div class="card-footer">

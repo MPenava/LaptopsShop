@@ -6,6 +6,9 @@ include("model/product.class.php");
 if (!User::jePrijavljen()) header("Location: login.php");
 
 $prijavljeni_korisnik = User::$prijavljeniKorisnik;
+if($prijavljeni_korisnik["typeOfUser"] !='superadministrator'){
+    header("Location:login.php");
+}
 
 $sql="SELECT * FROM users";
 $results=mysqli_query($conn,$sql);
