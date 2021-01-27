@@ -1,6 +1,6 @@
 <div class="box-second">
         <div class="logo">
-            <a href="index.php"><i class="logo-ls"></i></a>
+            <a href="public/index.php"><i class="logo-ls"></i></a>
         </div>
         <nav class="navigation">
             <ul>
@@ -34,11 +34,11 @@
             <div class="bar3 "></div>
         </div>
         <div class="logo">
-            <a href="index.php"><i class="logo-ls "></i></a>
+            <a href="public/index.php"><i class="logo-ls "></i></a>
         </div>
-        <div class="search-shopping-box ">
+        <div class="search-shopping-box">
             <a href="card.php">
-                <i class="fa fa-shopping-cart mt-4 mr-4"  style='font-size:30px;color:#005DA4;'><span id="cart-item" class="badge badge-danger"style="width:20px;height:20px;font-size:14px;"></span></i>
+                <i class="fa fa-shopping-cart mt-4 mr-4" style='font-size:30px;color:#005DA4;'><span id="cart-item" class="badge badge-danger"style="width:20px;height:20px;font-size:14px;"></span></i>
             </a>
         </div>
     </div>
@@ -70,7 +70,7 @@
             <div class="bar3 "></div>
         </div>
         <div class="logo ">
-            <a href="index.php"><i class="logo-ls "></i></a>
+            <a href="public/index.php"><i class="logo-ls "></i></a>
         </div>
         <div class="search-shopping-box ">
             <a href="card.php">

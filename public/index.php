@@ -1,5 +1,5 @@
 <?php
-    include("model/db.php");
+    include("../model/db.php");
     $limit=12;
     $page=isset($_GET['page']) ? $_GET['page']:1;
     $start =($page -1) * $limit;
@@ -28,11 +28,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href='assets/logo/ls-icon.png'>
+    <link rel="shortcut icon" href='../assets/logo/ls-icon.png'>
     <title>Laptops Shop</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <link rel="stylesheet" href="css/stylee.css">
+    <link rel="stylesheet" href="../css/stylee.css">
     
 </head>
 
@@ -40,8 +40,8 @@
     <header>
         <div class="box-first">
             <div class="log-reg">
-                <button type="button" class="btn btn-light btn-sm"><a href="login.php">Prijavi se</button>
-                <button type="button" class="btn btn-light btn-sm"><a href="registration.php">Registriraj se</a></button>
+                <button type="button" class="btn btn-light btn-sm"><a href="../login.php">Prijavi se</button>
+                <button type="button" class="btn btn-light btn-sm"><a href="../registration.php">Registriraj se</a></button>
             </div>
             <div class="search-box">
                 <input type="text" placeholder="Search...">
@@ -65,19 +65,19 @@
             <nav class="navigation">
                 <ul>
                     <li>
-                        <a href="index.php?page=1"><img src="assets/images/acer_test.svg" alt=""></a>
+                        <a href="index.php?page=1"><img src="../assets/images/acer_test.svg" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=2"><img src="assets/images/asus_test.jpg" alt=""></a>
+                        <a href="index.php?page=2"><img src="../assets/images/asus_test.jpg" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=3"><img src="assets/images/dell_test.svg" alt=""></a>
+                        <a href="index.php?page=3"><img src="../assets/images/dell_test.svg" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=4"><img src="assets/images/hp_test.svg" alt=""></a>
+                        <a href="index.php?page=4"><img src="../assets/images/hp_test.svg" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=5"><img src="assets/images/lenovo_test.svg" alt=""></a>
+                        <a href="index.php?page=5"><img src="../assets/images/lenovo_test.svg" alt=""></a>
                     </li>
                 </ul>
             </nav>
@@ -107,19 +107,19 @@
             <nav class="navigation ">
                 <ul>
                     <li>
-                        <a href="index.php?page=1"><img src="assets/images/acer_test.svg" alt=""></a>
+                        <a href="public/index.php?page=1"><img src="../assets/images/acer_test.svg" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=2"><img src="assets/images/asus.png" alt=""></a>
+                        <a href="index.php?page=2"><img src="../assets/images/asus.png" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=3"><img src="assets/images/dell_test.svg" alt=""></a>
+                        <a href="index.php?page=3"><img src="../assets/images/dell_test.svg" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=4"><img src="assets/images/hp_test.svg" alt=""></a>
+                        <a href="index.php?page=4"><img src="../assets/images/hp_test.svg" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=5"><img src="assets/images/lenovo_test.svg" alt=""></a>
+                        <a href="index.php?page=5"><img src="../assets/images/lenovo_test.svg" alt=""></a>
                     </li>
                 </ul>
             </nav>
@@ -146,19 +146,19 @@
             <nav class="navigation ">
                 <ul>
                     <li>
-                        <a href="index.php?page=1"><img src="assets/images/acer_test.svg" alt=""></a>
+                        <a href="index.php?page=1"><img src="../assets/images/acer_test.svg" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=2"><img src="assets/images/asus.png" alt=""></a>
+                        <a href="index.php?page=2"><img src="../assets/images/asus.png" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=3"><img src="assets/images/dell_test.svg" alt=""></a>
+                        <a href="index.php?page=3"><img src="../assets/images/dell_test.svg" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=4"><img src="assets/images/hp_test.svg" alt=""></a>
+                        <a href="index.php?page=4"><img src="../assets/images/hp_test.svg" alt=""></a>
                     </li>
                     <li>
-                        <a href="index.php?page=5"><img src="assets/images/lenovo_test.svg" alt=""></a>
+                        <a href="index.php?page=5"><img src="../assets/images/lenovo_test.svg" alt=""></a>
                     </li>
                     
                 </ul>
@@ -176,7 +176,7 @@
                 ?>
                 <div class="col-md col-sm-6 mt-5" >
                     <div class="card shadow p-1  bg-white rounded" style="width:15rem; height:27rem;margin-left: auto;margin-right: auto;">
-                        <img src="<?=$product['image'];?>" class="card-img-top" style="width:95%;"alt="...">
+                        <img src="../<?=$product['image'];?>" class="card-img-top" style="width:95%;"alt="...">
                         <div class="card-body">
                             <h5 class="card-title text-center" style="color:#005DA4;font-size:17px;">
                                 <?php echo($product['brand']. " " .$product['model']);?>
@@ -209,35 +209,35 @@
     <div class="jumbotron">
         <div class="row">
             <div class="col-md-4">
-                <img src="assets/logo/logo-ls.png">
+                <img src="../assets/logo/logo-ls.png">
             </div>
             <div class="col-md-4">
                 <h4>Informacije</h4>
-                <a href="about.html">O nama</a><br>
+                <a href="../about.html">O nama</a><br>
                 <a href="">Kontakt</a><br>
                 <a href="">Zašto kupiti kod nas?</a>
             </div>
             <div class="col-md-4">
                 <h4>Pratite nas na društvenim mrežama</h4>
-                <a href="https://www.facebook.com/"><img src="assets/logo/facebook-log.png" alt=""></a>
-                <a href="https://www.instagram.com/"><img src="assets/logo/instagram.png" alt=""></a>
+                <a href="https://www.facebook.com/"><img src="../assets/logo/facebook-log.png" alt=""></a>
+                <a href="https://www.instagram.com/"><img src="../assets/logo/instagram.png" alt=""></a>
 
             </div>
         </div>
     </div>
     <div class="items-wrapper">
         <div class="container">
-            <img src="assets/logo/maestro.png" alt="">
-            <img src="assets/logo/visa.png" alt="">
-            <img src="assets/logo/discover.jpg" alt="">
-            <img src="assets/logo/diners.jpg" alt="">
-            <img src="assets/logo/PayWeb e-kupovina_logo_v3.jpg" alt="">
+            <img src="../assets/logo/maestro.png" alt="">
+            <img src="../assets/logo/visa.png" alt="">
+            <img src="../assets/logo/discover.jpg" alt="">
+            <img src="../assets/logo/diners.jpg" alt="">
+            <img src="../assets/logo/PayWeb e-kupovina_logo_v3.jpg" alt="">
         </div>
     </div>
     <footer>
         <div class="copyright">2020 © Laptops Shop</div>
     </footer>
-    <script src="main.js"></script>
+    <script src="../main.js"></script>
 </body>
 
 </html>
