@@ -1,6 +1,6 @@
 <div class="box-second">
         <div class="logo">
-            <a href="public/index.php"><i class="logo-ls"></i></a>
+            <a href="index.php"><i class="logo-ls"></i></a>
         </div>
         <nav class="navigation">
             <ul>
@@ -34,7 +34,7 @@
             <div class="bar3 "></div>
         </div>
         <div class="logo">
-            <a href="public/index.php"><i class="logo-ls "></i></a>
+            <a href="index.php"><i class="logo-ls "></i></a>
         </div>
         <div class="search-shopping-box">
             <a href="card.php">
@@ -70,7 +70,7 @@
             <div class="bar3 "></div>
         </div>
         <div class="logo ">
-            <a href="public/index.php"><i class="logo-ls "></i></a>
+            <a href="index.php"><i class="logo-ls "></i></a>
         </div>
         <div class="search-shopping-box ">
             <a href="card.php">
