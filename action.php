@@ -156,4 +156,35 @@
         $stmt->bind_param("isi",$qty,$tprice,$pid);
         $stmt->execute();
     }
+    if(isset($_POST["userID"])){
+        $user=$_POST["userID"];
+        $grand_total=0;
+        $currentDate = date('Y-m-d H:i:s');
+        $allItems='';
+        $items=array();
+
+        $sql="SELECT CONCAT(product_name,'(',qty,')') AS ItemQty, total_price FROM cart";
+        $stmt=$conn->prepare($sql);
+        $stmt->execute();
+
+        $result=$stmt->get_result();
+        while($row=$result->fetch_assoc()){
+            $grand_total+=$row['total_price'];
+            $items[]=$row['ItemQty'];
+        }
+        $allItems=implode(", ",$items);
+
+        $query=$conn->prepare("INSERT INTO orders(price,orderDate,userId,products) VALUES (?,?,?,?)");
+        $query->bind_param("ssis",$grand_total,$currentDate,$user,$allItems);
+        $query->execute();
+
+        $stmt=$conn->prepare("DELETE  FROM cart WHERE userId=?");
+        $stmt->bind_param("i",$user);
+        $stmt->execute(); 
+
+        echo '<div class="alert alert-success alert-dismissible mt-2">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Vaša narudžba je dovršena! Hvala na povjerenju!</strong> 
+                </div>';                      
+    }
 ?>    
