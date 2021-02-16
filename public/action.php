@@ -187,4 +187,7 @@
                     <strong>Vaša narudžba je dovršena! Hvala na povjerenju!</strong> 
                 </div>';                      
     }
+    
+    
+    
 ?>    

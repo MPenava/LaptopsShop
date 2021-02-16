@@ -367,7 +367,7 @@ error_reporting(E_ALL);
                                         <td class="align-middle"><?=$product['model']?></td>
                                         <td class="align-middle"><?=$product['price']?> KM</td>
                                         <td class="align-middle">
-                                            <a href="#" class="btn btn-success btn-sm rounded-pill">Uredi</a>
+                                            <a href="#" class="btn btn-success btn-sm rounded-pill editbtn" title="Uređivanje profila">Uredi</a>
                                             <a  type="button" class="btn btn-danger btn-sm rounded-pill text-white delete-product" data-toggle="modal" data-id="<?= $product["ID"] ?>" data-target="#deleteWarning">Izbriši</a>
                                         </td>
                                     </tr>
@@ -387,6 +387,15 @@ error_reporting(E_ALL);
             $('#deleteWarning').on('show.bs.modal', function(e) {
                 var id = $(e.relatedTarget).data('id');
                 $('#modalDelete').attr('href', 'products/delete.php?id=' + id);
+            });
+            $('.editbtn').on('click',function(){
+                $('#editProduct').modal('show');
+                $tr=$(this).closest('tr');
+                var data=$tr.children("td").map(function(){
+                    return $(this).text();
+                }).get();
+                console.log(data);
+                
             });
         });
         

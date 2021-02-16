@@ -17,6 +17,10 @@ $users=$results->fetch_all(MYSQLI_ASSOC);
 $sql="SELECT * FROM products";
 $results=mysqli_query($conn,$sql);
 $products=$results->fetch_all(MYSQLI_ASSOC);
+
+$sql="SELECT * FROM orders";
+$results=mysqli_query($conn,$sql);
+$orders=$results->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +40,7 @@ $products=$results->fetch_all(MYSQLI_ASSOC);
 </head>
 
 <body>
-    <!--Add New User Modal Start-->  
+    <!--Add New User Modal-->  
     <div class="modal" tabindex="-1" role="dialog" id="addNewUser">
         <div class="modal-dialog modal-dialog-centered" role="document" style="width:300px;">
             <div class="modal-content">
@@ -56,6 +60,16 @@ $products=$results->fetch_all(MYSQLI_ASSOC);
                         <div class="row mb-1">
                             <div class="form-group col ">
                                 <input type="text" name="lastName"  class="form-control form-control-sm" placeholder="Prezime" required>                           
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="form-group col ">
+                                <input type="text" name="address"  class="form-control form-control-sm" placeholder="Adresa" required>                           
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="form-group col ">
+                                <input type="text" name="phone"  class="form-control form-control-sm" placeholder="Telefon" required>                           
                             </div>
                         </div>
                         <div class="row mb-1">
@@ -129,6 +143,16 @@ $products=$results->fetch_all(MYSQLI_ASSOC);
                         <div class="row mb-1">
                             <div class="form-group col ">
                                 <input type="text" name="lastName" id="lastName" class="form-control form-control-sm" placeholder="Prezime" required>                           
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="form-group col ">
+                                <input type="text" name="address" id="address" class="form-control form-control-sm" placeholder="Adresa" required>                           
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="form-group col ">
+                                <input type="text" name="phone" id="phone" class="form-control form-control-sm" placeholder="Telefon" required>                           
                             </div>
                         </div>
                         <div class="row mb-1">
@@ -231,7 +255,7 @@ $products=$results->fetch_all(MYSQLI_ASSOC);
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="#narudzbe">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
                                 <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
                             </svg>
@@ -310,6 +334,8 @@ $products=$results->fetch_all(MYSQLI_ASSOC);
                                         <th scope="col">ID</th>
                                         <th scope="col">Ime</th>
                                         <th scope="col">Prezime</th>
+                                        <th scope="col">Adresa</th>
+                                        <th scope="col">Telefon</th>
                                         <th scope="col">E-mail</th>
                                         <th scope="col">Vrsta korisnika</th>
                                         <th scope="col">Akcije</th>
@@ -323,10 +349,12 @@ $products=$results->fetch_all(MYSQLI_ASSOC);
                                         <td><?=$user['ID']?></td>
                                         <td><?=$user['firstName']?></td>
                                         <td><?=$user['surName']?></td>
+                                        <td><?=$user['address']?></td>
+                                        <td><?=$user['phone']?></td>
                                         <td><?=$user['email']?></td>
                                         <td><?=$user['typeOfUser']?></td>
-                                        <td >
-                                            <a href="#" class="btn btn-success btn-sm rounded-pill editbtn" title="Uređivanje profila">Uredi</a>
+                                        <td>
+                                            <a href="#" class="btn btn-success btn-sm rounded-pill editbtn mb-1" title="Uređivanje profila">Uredi</a>
                                             <a  type="button" title="Brisanje profila" class="btn btn-danger btn-sm rounded-pill text-white delete-product" data-toggle="modal" data-id="<?= $user["ID"] ?>" data-target="#deleteWarning">Izbriši</a>
                                         </td>
                                     </tr>
@@ -369,6 +397,46 @@ $products=$results->fetch_all(MYSQLI_ASSOC);
                         </div>                    
                     </div>   
                 </div>
+                <div class="card mt-5 mb-3" id="narudzbe" style="scroll-margin-top:80px;">
+                        <h5 class="card-header bg-primary" style="color:white;">Narudžbe</h5>
+                        <div class="card-body" style="overflow-x:auto;">                                       
+                            <table class="table table-responsive">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col" class="align-middle text-center">ID</th>
+                                        <th scope="col" class="align-middle text-center">Datum i vrijeme</th>
+                                        <th scope="col" class="align-middle text-center">Ime i prezime kupca</th>
+                                        <th scope="col" class="align-middle text-center">Adresa</th>
+                                        <th scope="col" class="align-middle text-center">Telefon</th>
+                                        <th scope="col" class="align-middle text-center">Proizvodi(količina)</th>
+                                        <th scope="col" class="align-middle text-center">Cijena</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php 
+                                        foreach($orders as $order):
+                                    ?>
+                                    <tr>
+                                        <td class="align-middle text-center"><?=$order['ID']?></td>
+                                        <td class="align-middle text-center"><?=$order['orderDate']?></td>
+                                        <?php
+                                            
+                                            $sql="SELECT firstName,surName,address, phone FROM users WHERE ID=".$order['userId'];
+                                            $results=mysqli_query($conn,$sql);
+                                            $user=$results->fetch_row();
+                                        ?>
+                                        <td class="align-middle text-center"><?php echo $user[0] . " " . $user[1]?></td>
+                                        <td class="align-middle text-center"><?php echo $user[2]?></td>
+                                        <td class="align-middle text-center"><?php echo $user[3]?></td>
+                                        <td class="align-middle text-center"><?=$order['products']?></td>
+                                        <td class="align-middle text-center"><?=$order['price']?> KM</td>
+                                    </tr>
+                                    <?php endforeach?>
+                                </tbody>
+                            </table>    
+                        </div>                    
+                    </div>   
+                </div>
 
             </main>
         
@@ -390,9 +458,11 @@ $products=$results->fetch_all(MYSQLI_ASSOC);
                 $("#update_id").val(data[0]);
                 $("#firstName").val(data[1]);
                 $("#lastName").val(data[2]);
-                $("#email").val(data[3]);
-                $("#password").val(data[4]);
-                $("#typeOfUser").val(data[5]);
+                $("#address").val(data[3]);
+                $("#phone").val(data[4]);
+                $("#email").val(data[5]);
+                $("#password").val(data[6]);
+                $("#typeOfUser").val(data[7]);
             });
 
         });
