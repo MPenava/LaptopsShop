@@ -96,7 +96,7 @@ $prijavljeni_korisnik = mysqli_fetch_assoc($result);
             margin-top:30px;
             border-radius:20px;
         }
-        .boxspec>.btn{
+        .boxspec > .form-submit >.btn{
             display:flex;
             align-items:center;
             justify-content: space-between;
@@ -128,12 +128,12 @@ $prijavljeni_korisnik = mysqli_fetch_assoc($result);
                     </svg>
                 </div>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="product-profile.php">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                         </svg> Profil
                     </a>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="wishList.php">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list-ul mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                         </svg>Lista želja
@@ -155,6 +155,7 @@ $prijavljeni_korisnik = mysqli_fetch_assoc($result);
         </div>
         <div class="container">
             <div class="row">
+                <div class="col-lg-12 mt-3" id="message"></div>
                 <div class="col-md-5">
                     <img src="<?=$row['image']?>" alt="" style="width:300px;height:300px;"/>
                     <h3 class="text-center" style="color:#005DA4;"><?=$row['brand']?> <?=$row['model']?></h3>               
@@ -186,9 +187,11 @@ $prijavljeni_korisnik = mysqli_fetch_assoc($result);
                 </div>
                 <div class="col-md-3 ">
                     <div class="boxspec mt-5">
-                        <p class="text-center "> Cijena: <span class="text-danger"><?=$row['price']?> KM</span></p>
-                        <button class="btn btn-light border mb-4"><i class="fas fa-list"></i>&nbsp;&nbsp;Lista želja</button>
-                        
+                        <form class="form-submit">
+                            <input type="hidden" class="productID" value="<?=$row['ID'] ?>">
+                            <p class="text-center "> Cijena: <span class="text-danger"><?=$row['price']?> KM</span></p>
+                            <button class="btn btn-light border mb-4 addToWistList"><i class="fas fa-list"></i>&nbsp;&nbsp;Lista želja</button>
+                        </form>
                     </div>
                 </div>
                 <div class="col-12">
@@ -241,38 +244,37 @@ $prijavljeni_korisnik = mysqli_fetch_assoc($result);
             </div>
         </div>
     </div> 
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-md-4">
-                <img src="assets/logo/logo-ls.png" alt="" srcset="">
-            </div>
-            <div class="col-md-4">
-                <h4>Informacije</h4>
-                <a href="about.html">O nama</a><br>
-                <a href="">Kontakt</a><br>
-                <a href="">Zašto kupiti kod nas?</a>
-            </div>
-            <div class="col-md-4">
-                <h4>Pratite nas na društvenim mrežama</h4>
-                <a href="https://www.facebook.com/"><img src="assets/logo/facebook-log.png" alt=""></a>
-                <a href="https://www.instagram.com/"><img src="assets/logo/instagram.png" alt=""></a>
-
-            </div>
-        </div>
-    </div>
-    <div class="items-wrapper">
-        <div class="container">
-            <img src="assets/logo/maestro.png" alt="">
-            <img src="assets/logo/visa.png" alt="">
-            <img src="assets/logo/discover.jpg" alt="">
-            <img src="assets/logo/diners.jpg" alt="">
-            <img src="assets/logo/PayWeb e-kupovina_logo_v3.jpg" alt="">
-        </div>
-    </div>
-    <footer>
-        <div class="copyright">2020 © Laptops Shop</div>
-    </footer>
-    
+    <?php include("static/footer.php");?>
+    <script>
+        $(document).ready(function(){ 
+            load_cart_item_number();
+            function load_cart_item_number(){
+                $.ajax({
+                    url:"action.php",
+                    method:"get",
+                    data:{cartItem:"cart_item"},
+                    success:function(response){
+                        $("#cart-item").html(response);
+                    }
+                });
+            }
+            $(".addToWistList").click(function(e){
+                e.preventDefault();
+                var $form=$(this).closest(".form-submit");
+                var productID=$form.find(".productID").val();
+                var uID=<?=$prijavljeni_korisnik["ID"]?>;
+                $.ajax({
+                    url:"action.php",
+                    method:"post",
+                    data:{productID:productID,uID:uID},
+                    success:function(response){
+                        $("#message").html(response);
+                    }
+                });
+            });
+            
+        });
+    </script>
     <script src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>

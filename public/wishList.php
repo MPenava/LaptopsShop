@@ -6,6 +6,13 @@ include("model/product.class.php");
 if (!User::jePrijavljen()) header("Location: login.php");
 
 $prijavljeni_korisnik = User::$prijavljeniKorisnik;
+if($prijavljeni_korisnik["typeOfUser"] !='korisnik'){
+    header("Location:login.php");
+}
+
+$result=$conn->query("SELECT p.ID,p.image,p.brand,p.model,p.price,p.processor,p.model_processor,p.ram,p.hard_disc,p.graphic_card,p.screen,p.model_graphic_card FROM products p, wishlist w  WHERE p.ID=w.idProduct AND w.idUser=".$prijavljeni_korisnik['ID']);
+$products=$result->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -16,11 +23,12 @@ $prijavljeni_korisnik = User::$prijavljeniKorisnik;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href='assets/logo/ls-icon.png'>
     <title>Laptops Shop</title>
-    <link rel="stylesheet" href="css/stylee.css">
+    <link rel="stylesheet" href="../css/stylee.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="jquery-3.5.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="css/stylee.css">
     <style>
@@ -55,6 +63,14 @@ $prijavljeni_korisnik = User::$prijavljeniKorisnik;
         .card-title>a{
             color:#005DA4;            
         }
+        .list-group li a{
+            text-decoration:none;
+        }
+        .list-group li a:hover{
+            color:black;
+        }
+        
+        
         
     </style>
 
@@ -106,102 +122,54 @@ $prijavljeni_korisnik = User::$prijavljeniKorisnik;
         <div class="animate-text">
             <p><span></span></p>
         </div>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                <div  style="display:<?php if(isset($_SESSION["showAlert"])){echo $_SESSION["showAlert"];}else{echo 'none';}unset($_SESSION['showAlert']);?>" class="alert alert-success alert-dismissible mt-3">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong><?php if(isset($_SESSION["message"])){echo $_SESSION["message"];} unset($_SESSION['showAlert']);?></strong>
-                </div>
-                    <div class="table-responsive mt-4">
-                        <table class="table table-bordered table-striped text-center">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class=" mt-3 text-primary center">Moje lista želja</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered mt-4">
                             <thead>
                                 <tr>
-                                    <td colspan="7"><h4 class="text-center text-primary m-0">Proizvodi u košarici!</h4></td>                 
-                                </tr>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Slika</th>
-                                    <th>Proizvod</th>
-                                    <th>Cijena</th>
-                                    <th>Količina</th>
-                                    <th>Ukupna cijena</th>
-                                    <th>
-                                        <a href="action.php?clear=all" class="badge-danger badge p-1" onclick="return confirm('Jeste li sigurni da želite isprazniti košaricu?');">
-                                            <i class="fas fa-trash"></i>&nbsp;&nbsp;Ispraznite košaricu
-                                        </a>
-                                    </th>
+                                    <th scope="col" class="text-secondary">Slika</th>
+                                    <th scope="col" class="text-secondary">Ime proizvoda</th>
+                                    <th scope="col" class="text-secondary">RAM</th>
+                                    <th scope="col" class="text-secondary">Procesor</th>
+                                    <th scope="col" class="text-secondary">Memorija</th>
+                                    <th scope="col" class="text-secondary">Grafička kartica</th>
+                                    <th scope="col" class="text-secondary">Ekran</th>
+                                    <th scope="col" class="text-secondary">Cijena</th>
+                                    <th scope="col" class="text-secondary">Akcije</th>
                                 </tr>
                             </thead>
+                            <?php foreach($products as $product):?>
                             <tbody>
-                                <?php 
-                                    require "model/db.php";
-                                    $stmt=$conn->prepare("SELECT * FROM cart WHERE userId=?");
-                                    $stmt->bind_param("i",$prijavljeni_korisnik["ID"]);
-                                    $stmt->execute();
-                                    $result=$stmt->get_result();
-                                    $grand_total=0;
-    
-                                    while($row=$result->fetch_assoc()):
-                                ?>
                                 <tr>
-                                    <td><?=$row["ID"]?></td>
-                                    <input type="hidden" class="pid" value="<?=$row["ID"]?>">
-                                    <td><img src="<?=$row["product_image"]?>" width="50"></td>
-                                    <td><?= $row["product_name"]?></td>
-                                    <td><i class="far fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($row["product_price"],2)?> BAM</td>
-                                    <input type="hidden" class="pprice" value="<?= $row["product_price"]?>">
-                                    <td><input type="number"  class="form-control itemQty" value="<?=$row["qty"]?>" style="width:75px;"></td>
-                                    <td><i class="far fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($row["total_price"],2)?> BAM</td>
-                                    <td>
-                                        <a href="action.php?remove=<?= $row["ID"]?>" class="text-danger lead" onclick="return confirm('Jeste li sigurni da želite izbristi proizvod?')">
+                                    <td scope="row" class="text-secondary"><img src="<?=$product['image']?>" alt="" style="width:70px;height:70px;"></td>
+                                    <td class="align-middle text-center"><?=  $product["brand"]. " " . $product["model"];?></td>
+                                    <td class="align-middle text-center"><?= $product["ram"];?></td>
+                                    <td class="align-middle text-center"><?= $product["processor"] . " ". $product["model_processor"] ?></td>
+                                    <td class="align-middle text-center"><?= $product["hard_disc"]?> </td>
+                                    <td class="align-middle text-center"><?= $product["graphic_card"] . " ". $product["model_graphic_card"] ?></td>
+                                    <td class="align-middle text-center"><?= $product["screen"]?></td>
+                                    <td class="align-middle text-center"><?= $product["price"]?> BAM</td>
+                                    <td class="align-middle text-center">
+                                        <a href="action.php?removeFromWishList=<?= $product["ID"]?>" class="text-danger lead" title="Brisanje proizvoda iz liste želja" onclick="return confirm('Jeste li sigurni da želite izbristi proizvod?')">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>
                                 </tr>
-                                <?php $grand_total += $row['total_price'];?>
-                                <?php endwhile?>
-                                <tr>
-                                    <td colspan="3">
-                                        <a href="user-login.php" class="btn btn-success"><i class="fas fa-cart-plus"></i>&nbsp;&nbsp;Nastavite kupovati</a>
-                                    </td>
-                                    <td colspan="2"><b>Ukupna cijena</b></td>
-                                    <td><b><i class="fas fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($grand_total,2)?> BAM</b></td>
-                                    <td>
-                                        <a href="checkout.php"  class="btn btn-primary  <?= ($grand_total>1)?"":"disabled";?>"><i class="far fa-credit-card"></i>&nbsp;&nbsp;Dovršite narudžbu</a>
-                                    </td>
-                                </tr>
                             </tbody>
+                            <?php endforeach ?>
                         </table>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
+        
     </div> 
     <?php include("static/footer.php");?>
-    
-    <script src="main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function(){
-            $(".itemQty").on("change",function(){
-                var $el=$(this).closest("tr");
-                var pid=$el.find(".pid").val();
-                var pprice=$el.find(".pprice").val();
-                var qty=$el.find(".itemQty").val();
-                location.reload(true);
-                $.ajax({
-                    url:"action.php",
-                    method:"post",
-                    cache:false,
-                    data:{qty:qty,pid:pid,pprice:pprice},
-                    success:function(response){                      
-                        console.log(response);
-                    }
-                });
-            }); 
-            
+        $(document).ready(function(){ 
             load_cart_item_number();
             function load_cart_item_number(){
                 $.ajax({
@@ -213,43 +181,25 @@ $prijavljeni_korisnik = User::$prijavljeniKorisnik;
                     }
                 });
             }
-            
-            $(".addItemBtn").click(function(e){
-                e.preventDefault();
-                var $form=$(this).closest(".form-submit");
-                var pid=$form.find(".pid").val();
-                var pname=$form.find(".pname").val();
-                var pprice=$form.find(".pprice").val();
-                var pimage=$form.find(".pimage").val();
-                var user=<?=$prijavljeni_korisnik["ID"]?>;
 
+            load_cart_item_number();
+            function load_cart_item_number(){
                 $.ajax({
                     url:"action.php",
-                    method:"post",
-                    data:{pid:pid,pname:pname,pprice:pprice,pimage:pimage,user:user},
+                    method:"get",
+                    data:{cartItem:"cart_item"},
                     success:function(response){
-                        $("#message").html(response);
-                        window.scrollTo(0,0);
-                        load_cart_item_number();
+                        $("#cart-item").html(response);
                     }
                 });
-
-                load_cart_item_number();
-                function load_cart_item_number(){
-                    $.ajax({
-                        url:"action.php",
-                        method:"get",
-                        data:{cartItem:"cart_item"},
-                        success:function(response){
-                            $("#cart-item").html(response);
-                        }
-                    });
-                }
-            });
-            
-            
+            }
         });
+            
     </script>
+    <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    
 </body>
 
 </html>

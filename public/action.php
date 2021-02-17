@@ -145,6 +145,15 @@
         header("Location:card.php");
 
     }
+    if(isset($_GET["removeFromWishList"])){
+        $id=$_GET["removeFromWishList"];
+        $stmt=$conn->prepare("DELETE FROM wishlist WHERE idProduct=?");
+        $stmt->bind_param("i",$id);
+        $stmt->execute();
+       
+        header("Location:wishList.php");
+
+    }
     if(isset($_POST["qty"])){
         $qty=$_POST["qty"];
         $pid=$_POST["pid"];
@@ -163,7 +172,7 @@
         $allItems='';
         $items=array();
 
-        $sql="SELECT CONCAT(product_name,'(',qty,')') AS ItemQty, total_price FROM cart";
+        $sql="SELECT CONCAT(product_name,'(',qty,')') AS ItemQty, total_price FROM cart WHERE userId=".$user;
         $stmt=$conn->prepare($sql);
         $stmt->execute();
 
@@ -187,7 +196,30 @@
                     <strong>Vaša narudžba je dovršena! Hvala na povjerenju!</strong> 
                 </div>';                      
     }
-    
-    
-    
+    if(isset($_POST["productID"])){
+        $productID=$_POST["productID"];
+        $uID=$_POST["uID"];
+
+        $sql=$conn->prepare("SELECT ID FROM wishlist WHERE idUser=? AND idProduct=?");
+        $sql->bind_param("ii",$uID,$productID);
+        $sql->execute();
+        $results=$sql->get_result();
+        $res=$results->fetch_assoc();
+
+        if(!$res){
+            $query=$conn->prepare("INSERT INTO wishlist(idUser,idProduct) VALUES (?,?)");
+            $query->bind_param("ii",$uID,$productID);
+            $query->execute();
+
+            echo '<div class="alert alert-success alert-dismissible mt-2">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Proizvod dodan u listu želja!</strong> 
+                </div>';
+        }else{
+            echo '<div class="alert alert-danger alert-dismissible mt-2">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Proizvod je već dodan u listu želja!!</strong> 
+                </div>';
+        }
+    }
 ?>    
