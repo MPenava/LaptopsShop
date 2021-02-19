@@ -174,7 +174,9 @@
             <p><span></span></p>
         </div>  
         <div class="container container-fluid">
-            <div id="resultsSearch"></div>
+            <div class="row productsSec">
+
+            </div>
             <div class="row products">
                 <?php
                     foreach($products as $product):
@@ -251,10 +253,21 @@
             
             $('.searchInput').keyup(function(e){               
                 if(e.keyCode == 13){
-                    var val=$(this).val();
-                    alert(val);
-                    
+                    var value=$(this).val();
+                    if(value.length== 0){
+                        location.reload();
+                    }
+                    $(".products").hide();
+                    $.ajax({
+                        url:'search.php',
+                        method:"POST",
+                        data:{value:value},
+                        success:function(response){
+                            $(".productsSec").html(response);
+                        }
+                    });
                 }
+                
                 
             });
         });
