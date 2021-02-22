@@ -36,6 +36,7 @@ $orders=$results->fetch_all(MYSQLI_ASSOC);
     <link rel="stylesheet" href="css/dashboard.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="https://kit.fontawesome.com/47f0b88d10.js"></script>
     
 </head>
 
