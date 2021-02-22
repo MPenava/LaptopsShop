@@ -145,15 +145,15 @@ $prijavljeni_korisnik = User::$prijavljeniKorisnik;
                                     while($row=$result->fetch_assoc()):
                                 ?>
                                 <tr>
-                                    <td><?=$row["ID"]?></td>
+                                    <td class="align-middle text-center"><?=$row["ID"]?></td>
                                     <input type="hidden" class="pid" value="<?=$row["ID"]?>">
-                                    <td><img src="<?=$row["product_image"]?>" width="50"></td>
-                                    <td><?= $row["product_name"]?></td>
-                                    <td><i class="far fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($row["product_price"],2)?> BAM</td>
+                                    <td class="align-middle text-center"><img src="<?=$row["product_image"]?>" width="50"></td>
+                                    <td class="align-middle text-center"><?= $row["product_name"]?></td>
+                                    <td class="align-middle text-center"><i class="far fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($row["product_price"],2)?> BAM</td>
                                     <input type="hidden" class="pprice" value="<?= $row["product_price"]?>">
-                                    <td><input type="number"  class="form-control itemQty" value="<?=$row["qty"]?>" style="width:75px;"></td>
-                                    <td><i class="far fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($row["total_price"],2)?> BAM</td>
-                                    <td>
+                                    <td class="align-middle text-center"><input type="number"  class="form-control itemQty" value="<?=$row["qty"]?>" style="width:75px;"></td>
+                                    <td class="align-middle text-center"><i class="far fa-money-bill-alt"></i>&nbsp;&nbsp;<?= number_format($row["total_price"],2)?> BAM</td>
+                                    <td class="align-middle text-center">
                                         <a href="action.php?remove=<?= $row["ID"]?>" class="text-danger lead" onclick="return confirm('Jeste li sigurni da želite izbristi proizvod?')">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>

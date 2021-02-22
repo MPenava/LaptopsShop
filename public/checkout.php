@@ -158,11 +158,11 @@
                                     while($row=$result->fetch_assoc()):
                                 ?>
                                 <tr>
-                                    <td><img src="<?= $row["product_image"]?>" width="50"></td>
-                                    <td><?= $row["product_name"]?></td>
-                                    <td><?= number_format($row["product_price"],2)?> BAM</td>
-                                    <td><?= $row["qty"]?></td>
-                                    <td><?= $row["total_price"]?> BAM</td>
+                                    <td class="align-middle text-center"><img src="<?= $row["product_image"]?>" width="50"></td>
+                                    <td class="align-middle text-center"><?= $row["product_name"]?></td>
+                                    <td class="align-middle text-center"><?= number_format($row["product_price"],2)?> BAM</td>
+                                    <td class="align-middle text-center"><?= $row["qty"]?></td>
+                                    <td class="align-middle text-center"><?= $row["total_price"]?> BAM</td>
                                 </tr>
                                 <?php $grand_total += $row['total_price'];?>
                                 <?php endwhile?>
