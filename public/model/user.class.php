@@ -43,7 +43,7 @@ class User{
         $password=md5($_POST['password']);
         $typeOfUser=$_POST['typeOfUser'];
 
-        $sql="UPDATE users SET firstName='$firstName',surName='$lastName',address='$address',phone='$phone',email='$email',password='$password',typeOfUser='$typeOfUser' WHERE ID='$id'" ;
+        $sql="UPDATE users SET firstName='$firstName',surName='$lastName',address='$address',phone='$phone',email='$email',password='$password',typeOfUser='$typeOfUser' WHERE ID=".$id;
         $result=mysqli_query($conn,$sql);
     }
     public static function updateUserProfile(){
