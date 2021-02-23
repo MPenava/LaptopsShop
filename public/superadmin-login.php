@@ -347,14 +347,14 @@ $orders=$results->fetch_all(MYSQLI_ASSOC);
                                         foreach($users as $user):
                                     ?>
                                     <tr>
-                                        <td><?=$user['ID']?></td>
-                                        <td><?=$user['firstName']?></td>
-                                        <td><?=$user['surName']?></td>
-                                        <td><?=$user['address']?></td>
-                                        <td><?=$user['phone']?></td>
-                                        <td><?=$user['email']?></td>
-                                        <td><?=$user['typeOfUser']?></td>
-                                        <td>
+                                        <td class="align-middle text-center"><?=$user['ID']?></td>
+                                        <td class="align-middle text-center"><?=$user['firstName']?></td>
+                                        <td class="align-middle text-center"><?=$user['surName']?></td>
+                                        <td class="align-middle text-center"><?=$user['address']?></td>
+                                        <td class="align-middle text-center"><?=$user['phone']?></td>
+                                        <td class="align-middle text-center"><?=$user['email']?></td>
+                                        <td class="align-middle text-center"><?=$user['typeOfUser']?></td>
+                                        <td class="align-middle text-center">
                                             <a href="#" class="btn btn-success btn-sm rounded-pill editbtn mb-1" title="Uređivanje profila">Uredi</a>
                                             <a  type="button" title="Brisanje profila" class="btn btn-danger btn-sm rounded-pill text-white delete-product" data-toggle="modal" data-id="<?= $user["ID"] ?>" data-target="#deleteWarning">Izbriši</a>
                                         </td>
