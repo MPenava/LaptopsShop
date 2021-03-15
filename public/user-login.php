@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("../model/db.php"); 
-include("../model/user.class.php"); 
-include("../model/product.class.php"); 
+include("model/db.php"); 
+include("model/user.class.php"); 
+include("model/product.class.php"); 
 if (!User::jePrijavljen()) header("Location: login.php");
 
 $prijavljeni_korisnik = User::$prijavljeniKorisnik;
@@ -17,9 +17,9 @@ if($prijavljeni_korisnik["typeOfUser"] !='korisnik'){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href='../assets/logo/ls-icon.png'>
+    <link rel="shortcut icon" href='assets/logo/ls-icon.png'>
     <title>Laptops Shop</title>
-    <link rel="stylesheet" href="../css/stylee.css">
+    <link rel="stylesheet" href="css/stylee.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="jquery-3.5.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

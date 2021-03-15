@@ -1,8 +1,8 @@
 <?php
 session_start();
-include("../model/db.php"); 
-include("../model/user.class.php"); 
-include("../model/product.class.php"); 
+include("model/db.php"); 
+include("model/user.class.php"); 
+include("model/product.class.php"); 
 if (!User::jePrijavljen()) header("Location: login.php");
 
 $prijavljeni_korisnik = User::$prijavljeniKorisnik;
@@ -29,7 +29,7 @@ $orders=$results->fetch_all(MYSQLI_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href='../assets/logo/ls-icon.png'>
+    <link rel="shortcut icon" href='assets/logo/ls-icon.png'>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Laptops Shop</title>
