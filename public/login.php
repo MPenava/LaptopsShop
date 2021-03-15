@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("model/db.php");
+include("../model/db.php");
 
 if(isset($_POST["btn-login-confirm"])){
     if($_POST['email-login']==""){

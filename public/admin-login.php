@@ -1,8 +1,8 @@
 <?php 
 session_start();
-include("model/db.php"); 
-include("model/user.class.php"); 
-include("model/product.class.php"); 
+include("../model/db.php"); 
+include("../model/user.class.php"); 
+include("../model/product.class.php"); 
 if (!User::jePrijavljen()) header("Location: login.php");
 
 $prijavljeni_korisnik = User::$prijavljeniKorisnik;
@@ -24,11 +24,11 @@ error_reporting(E_ALL);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="shortcut icon" href='assets/logo/ls-icon.png'>
+    <link rel="shortcut icon" href='../assets/logo/ls-icon.png'>
     <title>Laptops Shop</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/47f0b88d10.js"></script>
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 </head>
@@ -360,7 +360,7 @@ error_reporting(E_ALL);
                                     ?>
                                     <tr>
                                         <td class="align-middle text-center"><?=$product['ID']?></td>
-                                        <td class="align-middle text-center"><img src="<?=$product['image']?>" alt="" style="width:70px;height:70px;"></td>
+                                        <td class="align-middle text-center"><img src="../<?=$product['image']?>" alt="" style="width:70px;height:70px;"></td>
                                         <td class="align-middle"><?=$product['brand']?></td>
                                         <td class="align-middle"><?=$product['model']?></td>
                                         <td class="align-middle"><?=$product['price']?> KM</td>
@@ -402,6 +402,6 @@ error_reporting(E_ALL);
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     
-    <script src="main.js"></script>
+    <script src="../main.js"></script>
 </body>
 </html>

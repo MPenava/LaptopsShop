@@ -1,9 +1,9 @@
 <?php
     session_start();
 
-    include("model/db.php"); 
-    include("model/user.class.php"); 
-    include("model/product.class.php"); 
+    include("../model/db.php"); 
+    include("../model/user.class.php"); 
+    include("../model/product.class.php"); 
 
     if(isset($_POST["value"])){
         $output='';

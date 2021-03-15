@@ -1,5 +1,5 @@
 <?php
-    include("model/db.php");
+    include("../model/db.php");
     $limit=12;
     $page=isset($_GET['page']) ? $_GET['page']:1;
     $start =($page -1) * $limit;
@@ -29,13 +29,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href='assets/logo/ls-icon.png'>
+    <link rel="shortcut icon" href='../assets/logo/ls-icon.png'>
     <title>Laptops Shop</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/47f0b88d10.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="css/stylee.css">
+    <link rel="stylesheet" href="../css/stylee.css">
     
 
 </head>
@@ -183,7 +183,7 @@
                 ?>
                 <div class="col-md col-sm-6 mt-5" >
                     <div class="card shadow p-1  bg-white rounded" style="width:15rem; height:27rem;margin-left: auto;margin-right: auto;">
-                        <img src="<?=$product['image'];?>" class="card-img-top" style="width:95%;"alt="...">
+                        <img src="../<?=$product['image'];?>" class="card-img-top" style="width:95%;"alt="...">
                         <div class="card-body">
                             <h5 class="card-title text-center" style="color:#005DA4;font-size:17px;">
                                 <?php echo($product['brand']. " " .$product['model']);?>
@@ -247,7 +247,7 @@
     <footer>
         <div class="copyright">2020 © Laptops Shop</div>
     </footer>
-    <script src="main.js"></script>
+    <script src="../main.js"></script>
     <script>
         $(document).ready(function(){
             

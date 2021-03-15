@@ -1,5 +1,5 @@
 <?php
-include ("model/db.php");
+include ("../model/db.php");
 if(isset($_POST['btn-reg-confirm'])){
     $email=$conn->real_escape_string($_POST['email']);
     $query="SELECT email FROM users WHERE email = '$email'";
@@ -79,4 +79,4 @@ include("static/header.php");
 <?php
 include("static/footer.php");  
 ?>
-<script src="main.js"></script>
+<script src="../main.js"></script>

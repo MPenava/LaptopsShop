@@ -1,9 +1,9 @@
 <?php
     session_start();
 
-    include("model/db.php"); 
-    include("model/user.class.php"); 
-    include("model/product.class.php"); 
+    include("../model/db.php"); 
+    include("../model/user.class.php"); 
+    include("../model/product.class.php"); 
     if (!User::jePrijavljen()) header("Location: login.php");
 
     $prijavljeni_korisnik = User::$prijavljeniKorisnik;
@@ -51,7 +51,7 @@
                 $output .= '
                     <div class="col-md-4 mb-2">
                         <div class="card shadow p-1  bg-white rounded" style="width:15rem; height:30rem;margin-left: auto;margin-right: auto;">
-                            <img src="'.$row['image'].'" class="card-img-top" style="width:95%;"alt="...">
+                            <img src="../'.$row['image'].'" class="card-img-top" style="width:95%;"alt="...">
                             <div class="card-body">
                                 <h5 class="card-title text-center" style="color:#005DA4;font-size:17px;">
                                     <a href="product-profile.php?id='.$row['ID'].'">'.$row['brand'].' '.$row['model'].'</a>
