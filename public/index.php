@@ -247,7 +247,7 @@
     <footer>
         <div class="copyright">2020 © Laptops Shop</div>
     </footer>
-    <script src="../main.js"></script>
+    <script src="/main.js"></script>
     <script>
         $(document).ready(function(){
             
