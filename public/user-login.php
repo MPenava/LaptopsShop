@@ -385,7 +385,7 @@ if($prijavljeni_korisnik["typeOfUser"] !='korisnik'){
                         ?>
                         <div class="col-lg-4 col-md-6 col-sm-6  mb-5">
                             <div class="card shadow p-1  bg-white rounded" style="width:15rem; height:30rem;margin-left: auto;margin-right: auto;">
-                                <img src="../<?=$product['image'];?>" class="card-img-top" style="width:95%;"alt="...">
+                                <img src="<?=$product['image'];?>" class="card-img-top" style="width:95%;"alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center" style="color:#005DA4;font-size:17px;">
                                         <a href="product-profile.php?id=<?=$product['ID']?>"><?php echo($product['brand']. " " .$product['model']);?></a>
@@ -496,7 +496,7 @@ if($prijavljeni_korisnik["typeOfUser"] !='korisnik'){
             }
         });
     </script>
-    <script src="../main.js"></script>
+    <script src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     
